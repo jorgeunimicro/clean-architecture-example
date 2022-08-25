@@ -1,0 +1,45 @@
+<page-container>
+  <page-toolbar [title]="'Invoices'"></page-toolbar>
+  <page-body>
+    <data-table>
+      <thead>
+        <th>Invoice Number</th>
+        <th>Amount</th>
+        <th>Customer Name</th>
+        <th>Actions</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let line of invoices$ | async">
+          <td>{{line.invoiceNumber}}</td>
+          <td>{{line.amount | money:' NOK'}}</td>
+          <td>{{line.customer | customerFullName}}</td>
+          <td>{{line.status}}</td>
+          <td>
+            <div class="dropdown">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton1"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Action
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li>
+                  <a class="dropdown-item" (click)="accept(line)">Accept</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" (click)="reject(line)">Reject</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" (click)="assign(line)">Assign</a>
+                </li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </data-table>
+  </page-body>
+</page-container>
